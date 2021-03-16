@@ -31,9 +31,7 @@ app.get('/', (req, res)=> {
 });
 
 app.post('/signin', (req, res)=> {
-    console.log('req body: ', req.body);
     if(req.body.email === database.users[0].email && req.body.password === database.users[0].password){
-        console.log('success!!!');
         res.json(database.users[0]);
     }
     else{
@@ -76,6 +74,6 @@ app.put('/image', (req, res)=> {
     }
 });
 
-app.listen(3001, ()=> {
+app.listen(3000, ()=> {
     console.log('app is running!!!');
 });
