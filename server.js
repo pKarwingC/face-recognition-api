@@ -14,7 +14,7 @@ app.use(cors());
 const pgdb = knex({
     client: 'pg',
     connection: {
-        host : '127.0.0.1',
+        host : 'postgresql-rigid-66397',
         user : '',
         password : '',
         database : 'face-recognition'
