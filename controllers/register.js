@@ -24,7 +24,10 @@ const handleRegister = (req, res, pgdb, bcrypt) => {
         .then(trx.commit)
         .catch(trx.rollback);
     })
-    .catch(err => res.status(400).json('Unable to register'));
+    .catch(err => {
+        console.log('error: ', err);
+        res.status(400).json('Unable to register')
+    });
 };
 
 export default handleRegister;
