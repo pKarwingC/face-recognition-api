@@ -37,6 +37,6 @@ app.get('/profile/:id', (req, res)=> { handleProfile(req, res, pgdb) });
 app.put('/image', (req, res)=> { handleImage(req, res, pgdb) });
 app.post('/imageurl', (req, res)=> { handleImageApiCall(req, res) });
 
-app.listen(3000, ()=> {
+app.listen(process.env.PORT || 3000, ()=> {
     console.log('app is running!!!');
 });
