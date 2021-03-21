@@ -15,9 +15,7 @@ const pgdb = knex({
     client: 'pg',
     connection: {
         host : 'postgresql-rigid-66397',
-        user : '',
-        password : '',
-        database : 'face-recognition'
+        ssl: true
     }
 });
 
