@@ -15,10 +15,11 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
 const pgdb = knex({
     client: 'pg',
-    connection: {
-        connectionString : process.env.DATABASE_URL,
-        ssl: true
-    }
+    // connection: {
+    //     connectionString : process.env.DATABASE_URL,
+    //     ssl: true
+    // },
+    connection: process.env.POSTGRES_URI
 });
 
 app.get('/', (req, res)=> {
@@ -37,6 +38,7 @@ app.get('/profile/:id', (req, res)=> { handleProfile(req, res, pgdb) });
 app.put('/image', (req, res)=> { handleImage(req, res, pgdb) });
 app.post('/imageurl', (req, res)=> { handleImageApiCall(req, res) });
 
-app.listen(process.env.PORT || 3000, ()=> {
+// app.listen(process.env.PORT || 3000, ()=> {
+app.listen(3000, ()=> {
     console.log('app is running!!!');
 });
