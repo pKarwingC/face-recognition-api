@@ -3,9 +3,10 @@ import cors from "cors";
 import knex from "knex";
 import bcrypt from "bcrypt";
 import handleRegister from "./controllers/register.js";
-import handleSignin from "./controllers/signin.js";
-import handleProfile from "./controllers/profile.js";
+import signinAuthentication from "./controllers/signin.js";
+import handleProfile, {handleProfileUpdate} from "./controllers/profile.js";
 import {handleImage, handleImageApiCall} from "./controllers/image.js";
+import requireAuth from "./controllers/authorization.js";
 
 const app = express();
 app.use(express.json());
@@ -32,11 +33,12 @@ app.get('/', (req, res)=> {
         })
 });
 
-app.post('/signin', (req, res)=> { handleSignin(req, res, pgdb, bcrypt) });
+app.post('/signin', signinAuthentication(pgdb, bcrypt));
 app.post('/register', (req, res)=> { handleRegister(req, res, pgdb, bcrypt) });
-app.get('/profile/:id', (req, res)=> { handleProfile(req, res, pgdb) });
-app.put('/image', (req, res)=> { handleImage(req, res, pgdb) });
-app.post('/imageurl', (req, res)=> { handleImageApiCall(req, res) });
+app.get('/profile/:id', requireAuth, (req, res)=> { handleProfile(req, res, pgdb) });
+app.post('/profile/:id', requireAuth, (req, res)=> { handleProfileUpdate(req, res, pgdb) });
+app.put('/image', requireAuth, (req, res)=> { handleImage(req, res, pgdb) });
+app.post('/imageurl', requireAuth, (req, res)=> { handleImageApiCall(req, res) });
 
 // app.listen(process.env.PORT || 3000, ()=> {
 app.listen(3000, ()=> {
